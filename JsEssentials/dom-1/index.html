@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/dom-main.css">
+  <title>JavaScript Essential Training - DOM Manipulation | LinkedIn</title>
+</head>
+<header>
+  <h2>JavaScript Essential Training | LinkedIn</h2>
+</header>
+<body>
+  <main>
+    <h1>DOM Manipulation</h1>
+    <article>
+      <section>
+        <h3>The Browser</h3>
+        <p>The Web browser is an object and the document it displays is an object too.</p>
+        <p>We have the BOM, that is the Browser Object Model and we also have the DOM, that is, the Document Object Model.</p>
+        <p>The BOM is the set of objects of the browser, the browser window, it's buttons, the address bar, etc.<br>The DOM is the model of the document, with each of it's tags and nodes.</p>
+        <p>Some examples of the BOM:</p>
+
+        <code><pre>
+  window.innerWidth
+        </pre></code>
+
+        <span>The code will show the browser's window width.</span>
+
+        <code><pre>
+  window.open()
+        </pre></code>
+
+        <code><pre>
+  window.open('https://google.github.io/styleguide/htmlcssguide.html')
+        </pre></code>
+
+        <span>It's a BOM method for opening a new tab.</span>
+        <p>The visual representation:</p>
+        <figure>
+          <img src="../img/bom-dom.jpg" alt="Visual representation of the BOM and the DOM">
+          <figcaption>The visual representation of the objects - LinkedIn JS Course</figcaption>
+        </figure>
+        <p>Some DOM properties:</p>
+
+        <code><pre>
+  document.body;  // The body element
+  document.title;  // The document title
+  document.URL  // The document URL
+        </pre></code>
+
+      </section>
+
+      <section>
+        <h3>Target Elements in the DOM with Query selectors</h3>
+        <p>Selection methods like <code>document.getElementById('elementId');</code>, <code>document.getElementsByClassName('elementClass');</code>, and, <code>document.getElementsByTagName('HTML tag');</code> are still used and they are very useful, but they are very specific. <br>
+        Using selectors like class and tag name will return a node list or an HTML collection.</p>
+        <p>More recently we they introduced the Query Selector methods for a more general purpose way to give us the power to get what we want in a simpler way.</p>
+        <p>Examples:</p>
+
+        <code><pre>
+  document.querySelector('.main-nav a');  // returns the first instance that matches
+  document.querySelctorAll('.post p'); // returns a node list of the elements that matches
+        </pre></code>
+
+        <p class="test-one">Place this paragraph inside a variable and change it's color to green. Select it on the console using: <code>document.querySelector('.test-one');</code>. Then change it's color using <code>variableName.style.color = 'green';</code>.</p>
+        <p>Now, let's change the color of all the list elements of the list below:</p>
+        <ul>
+          <li class="list-item">First item</li>
+          <li class="list-item">Second item</li>
+          <li class="list-item">Third item</li>
+        </ul>
+        <p>Each list item of the list above have the class <code>list-item</code>, use querySelectorAll to get the items. Remember to use '.className' to get the class and that it will return a node list.<br> After you get the elements, use an forEach <code>items.forEach(item => { item.style.color = 'blue' });</code> to change the color of all of the list items.</p>
+      </section>
+    </article>
+  </main>
+</body>
+</html>
