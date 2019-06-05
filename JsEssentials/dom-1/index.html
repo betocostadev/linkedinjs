@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Inconsolata&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles/dom-main.css">
   <title>JavaScript Essential Training - DOM Manipulation | LinkedIn</title>
 </head>
@@ -23,16 +24,19 @@
         <p>Some examples of the BOM:</p>
 
         <code><pre>
+
   window.innerWidth
         </pre></code>
 
         <span>The code will show the browser's window width.</span>
 
         <code><pre>
+
   window.open()
         </pre></code>
 
         <code><pre>
+
   window.open('https://google.github.io/styleguide/htmlcssguide.html')
         </pre></code>
 
@@ -45,6 +49,7 @@
         <p>Some DOM properties:</p>
 
         <code><pre>
+
   document.body;  // The body element
   document.title;  // The document title
   document.URL  // The document URL
@@ -66,6 +71,7 @@
         <p>Examples:</p>
 
         <code><pre>
+
   document.querySelector('.main-nav a');  // returns the first instance that matches
   document.querySelctorAll('.post p'); // returns a node list of the elements that matches
   document.querySelectorAll('section p:first-of-type'); // returns a node list of every p that is the first of type of a section.
@@ -84,6 +90,7 @@
         <p>Follow these instructions:</p>
 
         <code><pre>
+
   // Select the paragraphs with:
   document.querySelectorAll('section p:first-of-type');
   // Put the node list in a variable.
@@ -96,9 +103,121 @@
       </section>
 
       <section>
+        <h3>Access and change elements</h3>
+        <p>Now, let's take a look at some ways to change the elements inside a document.</p>
+        <p>Be sure to check the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element" target="_blank">Mozilla's reference for Element methods</a>.</p>
+        <p class="par-change">Let's get this paragraph text on the console. This paragraph has a class of 'change-par'. Select it using document.querySelector and add .innerHTML to see what the console will return.</p>
+        <p>If you want to check every part of the element, including it's tags, then use ,outerHTML at the end of the query selection.</p>
+        <p>Now, let's change the content of the paragraph below:</p>
+        <p class="ask-change">Hey! Change me!</p>
+
+        <code><pre>
+
+  document.querySelector('.ask-change').innerHTML = 'Im changed!'
+        </pre></code>
+
+        <p>To do this, we will simply change the contents of the inner HTML using the code above.</p>
+        <p>You can also change all it's contents using <code>.outerHTML</code> but in this case you will also need to add the tags (like &lt;p&gt;) and you can also add attributes and classes if you want.</p>
+
+        <h4>Get the element's class</h4>
+        <p id='weirdpar' class="bold big">Now we will get this paragraph <em>classes</em>. As you can see, this paragraph's text is bolded and it's size is huge. That's because it's using two classes that do this. We will change this paragraph to make it look right.</p>
+        <p>Let's see two ways to get the classes of the paragraph and how to change them:</p>
+
+        <code><pre>
+
+  // Let's grab it using it's id: weirdpar
+  /* Then we add the element method .className to see the classes.
+  notice that by doing this the return will be a string with all the class names. */
+
+  document.querySelector('#weirdpar').classNames
+
+  /* The other way to get the class names is to use .classList but in this case you
+  will get an array with a class list.*/
+
+  /* To 'fix' the paragraph above we will remove the classes of the paragraph. Try this:*/
+  document.querySelector('#id').classList // To get the class names as an array
+  document.querySelector('#id').classList.remove('class1', 'class2', 'classN') // To remove.
+        </pre></code>
+
+        <h4>Change classes</h4>
+        <p>The <code>.classList</code> is a <em>read-only</em> element. To use it's methods we need to add them like <code>element.classList.toggle('className');</code>.</p>
+        <p>The methods we can use are <code>add</code>, <code>remove</code>, <code>item</code>, <code>toggle</code>, <code>contains</code> and <code>replace</code>.</p>
+        <p>Be sure to check the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/classList" target="_blank">MDN classList reference</a>.</p>
+        <p class="text-red">Try to remove the color of this paragraph. Select it by it's class <code>'.text-red'</code> and then use <code>classList.toggle('text-red');</code>.
+        <p>You can bring the color back if you run the same code again, but <em>only if you put the paragraph inside a variable before</em>. If you don't this first, the second time you try, the DOM will have no clue on how to find the class <code>text-red</code> because it was removed.</p>
+        <p>Try to use the other classList methods. Use classes like:</p>
+        <ul>
+          <li class="back-aquamarine bold">Im ugly, use <code>classList[num] to check my classes and remove some</code></li>
+          <li>back-lightblue</li>
+          <li>back-aquamarine</li>
+          <li>text-lightblue</li>
+          <li>text-aquamarine</li>
+        </ul>
+        <p>Remember that you can check an item for it's classes using <code>classList.contains('className');</code></p>
+
+        <h4>Element attributes</h4>
+        <p>Element attributes are values that usually can be seen in pairs like <code>&lt;a href="something.com"&gt;</code>.</p>
+        <p>To work with element attributes we can use some methods like <code>element.hasAttribute()</code>, <code>element.getAttribute()</code>, <code>element.setAttribute()</code> and <code>element.removeAttribute()</code>.</p>
+        <p>There are many more methods for attributes, be sure to check <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/attributes" id="datalink">MDN Element Attribute Methods</a> to learn how to work with them.</p>
+        <p>The link above will open on another page. This is something that we do with <code>target="blank"</code> inside the <code>a</code> tag, but, in this case we used a JavaScript code to accomplish this by using the element methods. Check the file <strong>dom-methods.js</strong> to see how it was done.</p>
+
+        <h4>Adding DOM elements</h4>
+        <p>We can use JavaScript to add DOM elements. There are some steps we need to take to make sure we add it in the correct way:</p>
+        <ol>
+          <li>Create the element</li>
+          <li>Create the text node that goes inside the element</li>
+          <li>Add the text node to the element</li>
+          <li>Add the element to the DOM tree</li>
+        </ol>
+        <p>Check the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document" target="_blank">MDN Document element methods</a> and look for the most used methods like:</p>
+
+        <ul>
+          <li><code>document.createElement()</code> creates a new element</li>
+          <li><code>document.createDocumentFragment()</code> great for a better page performance</li>
+          <li><code>ParentNode.append()</code> inserts the element that you want after the last child of the parent node</li>
+          <li><code>ParentNode.prepend()</code> inserts the element that you want before the first child of the parent node</li>
+          <li><code>Document​.create​Text​Node()</code> while you can just set the element's text without the use of this method, it is useful if you have some texts that can be used more than once. You can place them in a variable and add them using this method. If you want to only apply a text to one element, after creating it, use <code>element.textContent</code></li>
+        </ul>
+
+        <p>Let's see the power of these methods in action!</p>
+        <p>First we will add a figcaption to the image below:</p>
+        <figure class="main-fig">
+          <img src="../img/astronomy-earth-lunar-surface-87009.jpg" alt="Earth's view from the moon | Photo by Pixabay from Pexels">
+
+        </figure>
+        <p>Open you console and run the code: <code>addCaption(figure1);</code></p>
+        <p>If you did the step above, now you can see the figcaption above. To display the code for this figcaption, run the code: <code>renderAddCaption(codefigure);</code>. The code used for the function will be displayed below.
+        </p>
+        <p class="renderfigcode"></p>
+
+        <h4>Some more tests, including performance</h4>
+        <p><strong>To do later!</strong>
+        </p>
+        <p>We will add an array of 10.000 elements below. First the slowest way, then using the fastest way.
+        </p>
+      </section>
+
+      <section id="perfTests">
+        <div id="arrTest"></div>
 
       </section>
+
+      <section>
+        <h4>Apply inline CSS to an element</h4>
+        <p>Actually that is something we already did before on the sections above. Remember when you typed <code>element.style.color = 'blue'</code> that's a way to apply inline CSS to an element.</p>
+        <p>There are many types of CSS styles that you can add to an element. Check the <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/style" target="_blank">MDN Element style guide</a> to learn about the methods.
+        </p>
+        <p>You can also see the CSS style you can apply to an element by using the <code>.style()</code> code after selecting an element.
+        </p>
+        <p id="another-par">Select this paragraph that has the <em>id</em> <code>another-par</code> and use <code>.style</code> to check the available styles. Then apply the following code: <code>4px 4px 5px 1px rgba(54,54,54,1);</code> to it's box shadow style.
+        </p>
+        <p>You can also change the style of the element using the <code>setAttribute</code> method, but this will replace any inline style that was applied previously.</p>
+        <p>Example: <code>document.querySelector('#another-par').setAttribute('style', 'padding: 2.5rem;');</code>.</p>
+        <p><strong>Note:</strong> Applying styles in this way have some downsides. First, if you need to apply the same style to different elements, this can be a very tiresome proccess. Second, it's recommended that you only apply styles in this way if you really need to since Web standards wants to avoid inline styles. It is best to create the classes that you need and just add or remove the classes with JavaScript.</p>
+      </section>
+
     </article>
   </main>
+  <script src="dom-methods.js"></script>
 </body>
 </html>
