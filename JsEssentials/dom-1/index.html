@@ -190,15 +190,36 @@
         </p>
         <p class="renderfigcode"></p>
 
-        <h4>Some more tests, including performance</h4>
-        <p><strong>To do later!</strong>
-        </p>
-        <p>We will add an array of 10.000 elements below. First the slowest way, then using the fastest way.
-        </p>
       </section>
 
       <section id="perfTests">
-        <div id="arrTest"></div>
+        <h4>Some more tests, including performance</h4>
+        <p><strong>To do later!</strong>
+        </p>
+        <p>We will add 1000 paragraphs below!</p>
+
+        <p>We will do this in three diferent ways and we will also display the time elapsed for each one to complete the task. This way you can see the best way to code this.</p>
+
+        <p>First, we will add the 1000 paragraphs one at a time. This is the worst way, as you will see.</p>
+        <p>Second, we will add the 1000 paragraphs in a div that is not in the page, then we will only add the div.</p>
+        <p>Third, we will use the <code>.createDocumentFragment() </code>and put the fragment with the paragraphs on the page.</p>
+
+        <p>Try the functions below</p>
+        <p><strong>Note:</strong> You can see the code on array-tests.js. The <strong>reset</strong> button will not reset the times, only the paragraphs, feel free to use it.</p>
+
+        <div id="dom-test-buttons">
+          <button id="dom-test-one-btn">Test One</button>
+          <button id="dom-test-two-btn">Test Two</button>
+          <button id="dom-test-three-btn">Test Two</button>
+          <button id="reset-btn">Reset!</button>
+        </div>
+
+        <div id="array-test-container">
+          <p>Array list:</p>
+          <p id="perf-display-one">Test one elapsed time:</p>
+          <p id="perf-display-two">Test two elapsed time:</p>
+          <p id="perf-display-three">Test three elapsed time:</p>
+        </div>
 
       </section>
 
@@ -219,5 +240,6 @@
     </article>
   </main>
   <script src="dom-methods.js"></script>
+  <script src="array-tests.js"></script>
 </body>
 </html>

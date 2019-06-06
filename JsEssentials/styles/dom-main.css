@@ -110,3 +110,8 @@ figcaption {
 .text-aquamarine {
   color: Aquamarine;
 }
+
+.test-paragraphs {
+  font-size: 0.8rem;
+  font-weight: bold;
+}
