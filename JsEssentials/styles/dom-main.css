@@ -76,6 +76,11 @@ figcaption {
 
 /* Experiences for using JavaScript to play around */
 
+.dom-test-par {
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
 .ask-change {
   background-color: darkslateblue;
   color: whitesmoke;
@@ -109,9 +114,4 @@ figcaption {
 
 .text-aquamarine {
   color: Aquamarine;
-}
-
-.test-paragraphs {
-  font-size: 0.8rem;
-  font-weight: bold;
 }
