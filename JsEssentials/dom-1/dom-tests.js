@@ -1,7 +1,7 @@
 /* JavaScript Dom insertion and performance tests
 
 The functions below will:
-Generate and array of 1500 paragraphs and then call for a function to append paragraphs
+Generate and array of 1000 paragraphs and then call for a function to append paragraphs
 on the page with each array number.
 domTestOne = Low performance function (too many reflows)
 domTestTwo = moderate performance (less reflows - but a not needed new div in the DOM)
@@ -19,7 +19,7 @@ const perfDisplay1 = document.querySelector('#perf-display-one');
 const perfDisplay2 = document.querySelector('#perf-display-two');
 const perfDisplay3 = document.querySelector('#perf-display-three');
 
-// Function to generate an array with 1500 elements to be added to the paragraphs:
+// Function to generate an array with 1000 elements to be added to the paragraphs:
 const arrayGenerator = (funcCalled) => {
   const num = 1000;
   const genArr = [];
