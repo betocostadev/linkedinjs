@@ -19,13 +19,15 @@ const arrayGenerator = (funcCalled) => {
     domTestOne(genArr);
   } else if (funcCalled === 'domTestTwo') {
     domTestTwo(genArr);
+  } else if (funcCalled === 'domTestThree') {
+    domTestThree(genArr);
   }
 };
 
 // First test function
 // This function will add one by one, all the paragraphs.
 const domTestOne = (arrToAdd) => {
-  // If the document already have the array of paragraphs, remove it:
+  // If the document already have the div with the paragraphs, remove it:
   if (document.querySelector('.test-paragraphs')) {
     // Put the div of paragraphs in a variable to be removed
     const die = document.querySelector('.test-paragraphs');
@@ -53,12 +55,12 @@ const domTestOne = (arrToAdd) => {
   }
   // Finish performance test
   const endTime = performance.now();
-  perfDisplayOne.textContent = `Total time it took to complete: ${endTime - startTime}`;
+  perfDisplayOne.textContent = `Operation took: ${endTime - startTime} milliseconds.`;
 }
 
 // Second test function
 const domTestTwo = (arrToAdd) => {
-  // If the document already have the array of paragraphs, remove it:
+  // If the document already have the div with the paragraphs, remove it:
   if (document.querySelector('.test-paragraphs')) {
     // Put the div of paragraphs in a variable to be removed
     const die = document.querySelector('.test-paragraphs');
@@ -86,10 +88,39 @@ const domTestTwo = (arrToAdd) => {
   container.appendChild(paragraphsContainer);
   // Finish performance test
   const endTime = performance.now();
-  perfDisplayTwo.textContent = `Test two elapsed time: ${endTime - startTime}`;
+  perfDisplayTwo.textContent = `Operation took: ${endTime - startTime} milliseconds.`;
 }
 
-// TODO : FUNCTION 3, USING DOCUMENT FRAGMENT!!!
+// Third test function - This one will use Document Fragment.
+const domTestThree = (arrToAdd) => {
+  // If the document already have the div with the paragraphs, remove it:
+  if (document.querySelector('.test-paragraphs')) {
+    // Put the div of paragraphs in a variable to be removed
+    const die = document.querySelector('.test-paragraphs');
+    // Asking to remove itself? YES! It works.
+    // It uses the element to traverse for its parent and the parent removes the child.
+    die.parentElement.removeChild(die);
+  }
+  // The paragraph that will display the performance test
+  const perfDisplayThree = document.getElementById('perf-display-three');
+  // The div that will hold the paragraphs
+  const container = document.getElementById('array-test-container');
+  // We will create a document Fragment, so there is no need to create the paragraphs div.
+  const docFragment = document.createDocumentFragment();
+  // Start the performance test.
+  const startTime = performance.now();
+  // Create the paragraphs and add their text
+  for (let i = 0; i < arrToAdd.length; i++) {
+    const paragraph = document.createElement('p');
+    paragraph.textContent = `This is the paragraph number: ${arrToAdd[i]}`;
+    // Attach the paragraphs to the fragment
+    docFragment.appendChild(paragraph);
+  }
+  container.appendChild(docFragment);
+  // Finish performance test
+  const endTime = performance.now();
+  perfDisplayThree.textContent = `Operation took: ${endTime - startTime} milliseconds.`;
+}
 
 
 // Buttons
@@ -105,11 +136,14 @@ domTestButtons.addEventListener('click', (e) => {
     arrayGenerator('domTestOne')
   } else if (e.target === domTestTwoBtn) {
     arrayGenerator('domTestTwo');
+  } else if (e.target === domTestThreeBtn) {
+    arrayGenerator('domTestThree');
   }
   // Remember to add an else if with the reset button here!
 })
 
 const reset = () => {
+  const domTestButtonsDiv = document.querySelector('#dom-test-buttons');
   // If the document already have the array of paragraphs, remove it:
   if (document.querySelector('.test-paragraphs')) {
     // Put the div of paragraphs in a variable to be removed
@@ -117,9 +151,14 @@ const reset = () => {
     // Asking to remove itself? YES! It works.
     // It uses the element to traverse for its parent and the parent removes the child.
     die.parentElement.removeChild(die);
+  // } else if (domTestButtons.nextElementSibling === document.querySelector('#array-test-container')) {
+  //   domTestButtons.nextElementSibling.remove();
   }
 }
 
 const resetBtn = document.getElementById('reset-btn');
 resetBtn.addEventListener('click', reset);
 
+/* TODO: Change the way the paragraphs are placed in the DOM.
+For now, there is a test-paragraphs div that is placed, and the div is placed as a child of the 'array-test-container'.
+The commented code above, the else inside the reset () works. It's the best way to fix the others while avoiding the use o the new div.*/
