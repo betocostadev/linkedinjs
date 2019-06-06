@@ -21,7 +21,7 @@ const perfDisplay3 = document.querySelector('#perf-display-three');
 
 // Function to generate an array with 1500 elements to be added to the paragraphs:
 const arrayGenerator = (funcCalled) => {
-  const num = 1500;
+  const num = 1000;
   const genArr = [];
   for (let i = 1; i <= num; i += 1) {
     genArr.push(i);

@@ -158,6 +158,7 @@
         <h4>Element attributes</h4>
         <p>Element attributes are values that usually can be seen in pairs like <code>&lt;a href="something.com"&gt;</code>.</p>
         <p>To work with element attributes we can use some methods like <code>element.hasAttribute()</code>, <code>element.getAttribute()</code>, <code>element.setAttribute()</code> and <code>element.removeAttribute()</code>.</p>
+        <!-- DO NOT ADD TARGET="_BLANK" on the link below. -->
         <p>There are many more methods for attributes, be sure to check <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/attributes" id="datalink">MDN Element Attribute Methods</a> to learn how to work with them.</p>
         <p>The link above will open on another page. This is something that we do with <code>target="blank"</code> inside the <code>a</code> tag, but, in this case we used a JavaScript code to accomplish this by using the element methods. Check the file <strong>dom-methods.js</strong> to see how it was done.</p>
 
@@ -183,7 +184,7 @@
         <p>First we will add a figcaption to the image below:</p>
         <figure class="main-fig">
           <img src="../img/astronomy-earth-lunar-surface-87009.jpg" alt="Earth's view from the moon | Photo by Pixabay from Pexels">
-
+          <!-- DO NOT ADD A FIGCAPTION -->
         </figure>
         <p>Open you console and run the code: <code>addCaption(figure1);</code></p>
         <p>If you did the step above, now you can see the figcaption above. To display the code for this figcaption, run the code: <code>renderAddCaption(codefigure);</code>. The code used for the function will be displayed below.
@@ -194,18 +195,25 @@
 
       <section id="perfTests">
         <h4>Some more tests, including performance</h4>
-        <p><strong>To do later!</strong>
-        </p>
-        <p>We will add 1000 paragraphs below!</p>
+        <p><em>We will add 1000 paragraphs below!</em></p>
 
-        <p>We will do this in three diferent ways and we will also display the time elapsed for each one to complete the task. This way you can see the best way to code this.</p>
+        <p>We will do this in three diferent ways and we will also display the time elapsed for each one to complete the task. This way you can see the performance diffence they have and also what difference does it make in the DOM tree.</p>
 
-        <p>First, we will add the 1000 paragraphs one at a time. This is the worst way, as you will see.</p>
-        <p>Second, we will add the 1000 paragraphs in a div that is not in the page, then we will only add the div.</p>
-        <p>Third, we will use the <code>.createDocumentFragment() </code>and put the fragment with the paragraphs on the page.</p>
+        <p>Before executing the tests, understand the differences of each one:</p>
 
-        <p>Try the functions below</p>
-        <p><strong>Note:</strong> You can see the code on array-tests.js. The <strong>reset</strong> button will not reset the times, only the paragraphs, feel free to use it.</p>
+        <p><strong>Test One:</strong> This test will add 1000 paragraphs to the DOM. How? It will use a loop to create each paragraph, add a class to it, add it's text, and then, it will render the paragraphs in the document, one by one. This is a very costly proccess because it will ask the browser to do <strong>1000 reflows</strong>.</p>
+
+        <p><strong>Test Two:</strong> This test will add 1000 paragraphs to the DOM. How? First,this code will create a new <code>&lt;div&gt;</code>, but will not add it to the page. Then it will use a loop to create each paragraph, add a class to it, add it's text, and then, <em>it will add all the paragraphs to the <code>&lt;div&gt;</code>.</em> This way, we will have the same result, but, there will be only <strong>one reflow</strong>, that's when the new <code>&lt;div&gt;</code> will be draw on the page, but this div already have the 1000 pagaraphs. The <em>downside</em> is it that we will have a <code>&lt;div&gt;</code> that we don't need after all.</p>
+        <p><p><strong>Test Three:</strong> This test will add 1000 paragraphs to the DOM. The main difference is that this test is going to be almost as fast as the <em>test two, but will not add an unecessary</em> <code>&lt;div&gt;</code> <em>to the page!</em> How?  This time we will use a the <code>.createDocumentFragment()</code> method and append all the 1000 paragraphs inside the <strong>Document Fragment</strong>, then we will add the fragment to the page. This will not add any new div, only the 1000 paragraphs, but with only one reflow, because the fragment by itself is available only in the browser memory.</p>
+
+        <p>To understand more about the browser reflow, check <a href="https://developers.google.com/speed/docs/insights/browser-reflow" target="_blank">Minimizing browser reflow</a> from Google's PageSpeed Insights.</p>
+
+        <p>More about the <code>.DocumentFragment()</code> on <a href="https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment" target="_blank">MDN Document Fragment</a>.</p>
+
+        <p>Tests where done using <code>performance.now()</code>, more about it on <a href="https://developer.mozilla.org/en-US/docs/Web/API/Performance/now" target="_blank">MDN performance.now()</a>.</p>
+
+        <p>Now, let's run the tests!</p>
+        <p><strong>Note:</strong> You can see the code on <a href="dom-tests.js" target="_blank">dom-tests.js</a>. The <strong>reset</strong> button will not reset the times, only the paragraphs, feel free to use it.</p>
 
         <div id="dom-test">
           <button id="test-one-btn">Test One</button>
@@ -213,9 +221,9 @@
           <button id="test-three-btn">Test Three</button>
           <button id="test-reset-btn">Reset!</button>
           <p>Array list:</p>
-          <p id="perf-display-one"></p>
-          <p id="perf-display-two"></p>
-          <p id="perf-display-three"></p>
+          <p id="perf-display-one">First test: </p>
+          <p id="perf-display-two">Second test: </p>
+          <p id="perf-display-three">Third test: </p>
         </div>
 
       </section>
@@ -237,7 +245,6 @@
     </article>
   </main>
   <script src="dom-methods.js"></script>
-  <!-- <script src="array-tests.js"></script> -->
   <script src="dom-tests.js"></script>
 </body>
 </html>
