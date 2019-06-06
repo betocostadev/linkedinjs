@@ -44,7 +44,7 @@
         <p>The visual representation:</p>
         <figure>
           <img src="../img/bom-dom.jpg" alt="Visual representation of the BOM and the DOM">
-          <figcaption>The visual representation of the objects - LinkedIn JS Course</figcaption>
+          <figcaption>The visual representation of the objects - LinkedIn <a href="https://www.linkedin.com/learning/javascript-essential-training-3">Javascript Essential Training</a></figcaption>
         </figure>
         <p>Some DOM properties:</p>
 
@@ -240,6 +240,56 @@
         <p>You can also change the style of the element using the <code>setAttribute</code> method, but this will replace any inline style that was applied previously.</p>
         <p>Example: <code>document.querySelector('#another-par').setAttribute('style', 'padding: 2.5rem;');</code>.</p>
         <p><strong>Note:</strong> Applying styles in this way have some downsides. First, if you need to apply the same style to different elements, this can be a very tiresome proccess. Second, it's recommended that you only apply styles in this way if you really need to since Web standards wants to avoid inline styles. It is best to create the classes that you need and just add or remove the classes with JavaScript.</p>
+      </section>
+
+      <section>
+        <h3>DOM Events</h3>
+
+        <p>DOM Events happen all the time. The Browser watches for every kind of event that may happen like: mouse click, mouse move, resizing the window, pressing a button, scrolling the page, etc.</p>
+
+        <figure>
+          <img src="../img/dom-events.jpg" alt="Dom events">
+          <figcaption>Dom Events by LinkedIn <a href="https://www.linkedin.com/learning/javascript-essential-training-3">JavaScript Essential Training</a>.</figcaption>
+        </figure>
+
+        <p>We can use the browser events to give interactivity to our pages or apps. We use the <em>event listeners</em> for events and then we apply our code to respond to these events.</p>
+        <p>We have browser-level events and DOM-level events.</p>
+
+        <p>Browser-level events:</p>
+
+        <ul>
+          <li>load</li>
+          <li>error</li>
+          <li>scroll</li>
+          <li>window resize</li>
+          <li>etc...</li>
+        </ul>
+
+        <p>DOM-level events:</p>
+
+        <ul>
+          <li>click</li>
+          <li>focus</li>
+          <li>blur</li>
+          <li>submit</li>
+          <li>etc...</li>
+          <span>CSS Transition Events</span>
+          <ul>
+            <li>start</li>
+            <li>run</li>
+            <li>end</li>
+          </ul>
+        </ul>
+
+        <p>There is a big list of events available, you can learn more at <a href="https://developer.mozilla.org/en-US/docs/Web/Events" target="_blank">MDN Events</a>.</p>
+
+        <p>We already have event listeners around here. The buttons on the previous section have event listeners to run the different performance tests.</p>
+
+        <p>Here we will have a very annoying event. We will use a <code>click</code> event to ask the browser to open an annoying dialog box asking four your name. If you prove it, you will see it displayed below.</p>
+        <button class="user-btn">Click me!</button>
+        <p class="user-name"></p>
+
+        <p>To see more events in action, take a look at the <a href="./mouse-tracker/mouse-tracker.html">mouse-tracker</a> that the instructor did.</p>
       </section>
 
     </article>

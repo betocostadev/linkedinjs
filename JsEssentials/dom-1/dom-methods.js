@@ -76,3 +76,18 @@ const renderAddCaption = (funName) => {
 }
 
 // renderAddCaption(codefigure);
+
+// Ask for user name
+const userBtn = document.querySelector('.user-btn');
+
+const displayUserName = () => {
+  let message = prompt(`Hello! What's your name?`);
+  const displayNamePar = document.querySelector('.user-name');
+  if (message === '') {
+    displayNamePar.textContent = `Hello, user! Sorry about the annoying prompt window 🍹`;
+  } else {
+    displayNamePar.textContent = `Hello, ${message}! Sorry about the annoying prompt window 🍹`;
+  }
+}
+
+userBtn.addEventListener('click', displayUserName);
