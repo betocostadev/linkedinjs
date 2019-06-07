@@ -95,6 +95,22 @@ figcaption {
   box-shadow: 2px 2px 3px 1px #000000c7;
 }
 
+.primary-btn {
+  margin: 1rem auto;
+  padding: 0.8rem;
+  font-size: 1.2rem;
+  background-color: #346ab1;
+  color: whitesmoke;
+  border: 2px solid #2e7fc1;
+  border-radius: 0.4rem;
+  box-shadow: 4px 4px 2px 1px #141414c7;
+  transition: all 0.3s;
+}
+
+.primary-btn:hover {
+  box-shadow: 2px 2px 3px 1px #141414c7;
+}
+
 /* Experiences for using JavaScript to play around */
 
 .dom-test-par {
