@@ -59,6 +59,10 @@ section {
   margin-bottom: 2rem;
 }
 
+section:last-of-type {
+  margin-bottom: 8rem;
+}
+
 figcaption {
   background-color: #cedcdf;
   border-left: 2px solid #3a3939;

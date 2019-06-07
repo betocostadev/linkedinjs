@@ -83,11 +83,18 @@ const userBtn = document.querySelector('.user-btn');
 const displayUserName = () => {
   let message = prompt(`Hello! What's your name?`);
   const displayNamePar = document.querySelector('.user-name');
-  if (message === '') {
+  if (message === '' || message === null) {
     displayNamePar.textContent = `Hello, user! Sorry about the annoying prompt window 🍹`;
   } else {
     displayNamePar.textContent = `Hello, ${message}! Sorry about the annoying prompt window 🍹`;
   }
 }
 
-userBtn.addEventListener('click', displayUserName);
+userBtn.addEventListener('click', displayUserName, false);
+userBtn.addEventListener('click', () => { console.log(`The button was clicked!`)});
+
+const cTextBtn = document.querySelector('#change-text-btn');
+const changeText = (text) => {
+  text.innerHTML === 'Help!' ? text.innerHTML = 'Thanks!' : text.innerHTML = 'Help!';
+}
+cTextBtn.addEventListener('click', function() { changeText(this) });

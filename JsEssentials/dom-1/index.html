@@ -285,9 +285,50 @@
 
         <p>We already have event listeners around here. The buttons on the previous section have event listeners to run the different performance tests.</p>
 
-        <p>Here we will have a very annoying event. We will use a <code>click</code> event to ask the browser to open an annoying dialog box asking four your name. If you prove it, you will see it displayed below.</p>
+        <p>Here we will have a very annoying event. We will use a <code>click</code> event to ask the browser to open an annoying dialog box asking for your name. If you provide it, you will see it displayed below.</p>
         <button class="user-btn">Click me!</button>
         <p class="user-name"></p>
+
+        <p>The code created for this function is:</p>
+
+        <code><pre>
+  const displayUserName = () => {
+    let message = prompt(`Hello! What's your name?`);
+    const displayNamePar = document.querySelector('.user-name');
+    if (message === '' || message === null) {
+      displayNamePar.textContent = `Hello, user! Sorry about the annoying prompt window 🍹`;
+    } else {
+      displayNamePar.textContent = `Hello, ${message}! Sorry about the annoying prompt window 🍹`;
+    }
+  }
+  userBtn.addEventListener('click', displayUserName, false);
+  userBtn.addEventListener('click', () => { console.log(`The button was clicked!`)});
+        </pre></code>
+
+        <p>The <code>if</code> is used to display <em>user</em> if you don't type your name. The <code>userBtn</code> is the name of the variable for the button. After displayUserName we don't use the function call <code>()</code> because this would run the function as soon as the page was loaded.</p>
+
+        <p>On the second part that we call the button, we are using a function expression. The function is not it self called upon the page loads because the code is declaring a function.</p>
+
+        <p>Then you may think... If I need an argument to pass the function, how will I do it, since the <code>()</code> will call it? For this, you can declare an <em>anonymous function</em> inside the event listener and then call the other function with the arguments you need. Let's take a look:</p>
+
+        <code><pre>
+  const cTextBtn = document.querySelector('#change-text-btn');
+  const changeText = (text) => {
+    text.innerHTML === 'Help!' ? text.innerHTML = 'Thanks!' : text.innerHTML = 'Help!';
+  }
+  cTextBtn.addEventListener('click', function() { changeText(this) });
+        </pre></code>
+
+        <p>Now the last line is adding the event listener and also passing a function that calls for another function with arguments passed. If you want to pass something else, like an <code>e</code> for event, and also another argument, you do like this:</p>
+
+        <code><pre>
+  const changeText = (e,text) => { <em>Do Something</em> }
+  something.addEventListener('click', function(e){ changeText(this) });
+        </pre></code>
+
+        <p>This button is running the above function to change it's text. Click it to see.</p>
+
+        <button id="change-text-btn">Help!</button>
 
         <p>To see more events in action, take a look at the <a href="./mouse-tracker/mouse-tracker.html">mouse-tracker</a> that the instructor did.</p>
       </section>
