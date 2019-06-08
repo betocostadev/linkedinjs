@@ -1,3 +1,5 @@
+// Some simple DOM loops
+// eslint-disable-next-line no-unused-vars
 const loopsContainer = document.querySelector('#loops');
 // Links UL
 const linkList = document.querySelector('#link-list');
@@ -9,11 +11,10 @@ const extLinks = document.querySelectorAll('a[href^=http]');
 const renderLinkList = () => {
   if (linkList.childElementCount > 0) {
     let kids = Array.from(linkList.children);
-    console.log(kids)
+    // console.log(kids)
     kids.forEach(li => {
       li.parentElement.removeChild(li);
     });
-    console.log('HELP!')
   } else {
     const fragment = document.createDocumentFragment();
     for (let i = 0; i < extLinks.length; i++) {
@@ -23,7 +24,7 @@ const renderLinkList = () => {
     }
     linkList.append(fragment);
   }
-}
+};
 
 renderLinksBtn.addEventListener('click', renderLinkList);
 

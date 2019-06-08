@@ -1,0 +1,29 @@
+{
+  "name": "linkedinjs",
+  "version": "1.0.0",
+  "description": "Javascript tests based on Javascript essential training from Morten Rand-Hendrikesen",
+  "main": "index.html",
+  "dependencies": {
+    "eslint": "^5.16.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/betocostadev/linkedinjs.git"
+  },
+  "keywords": [
+    "morten",
+    "rand",
+    "javascript",
+    "linkedin"
+  ],
+  "author": "betocostadev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/betocostadev/linkedinjs/issues"
+  },
+  "homepage": "https://github.com/betocostadev/linkedinjs#readme"
+}

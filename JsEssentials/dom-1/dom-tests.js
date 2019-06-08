@@ -27,11 +27,11 @@ const arrayGenerator = (funcCalled) => {
     genArr.push(i);
   }
   // return genArr;
-  if (funcCalled === 'domTestOne'){
+  if (funcCalled === testBtn1){
     domTestOne(genArr);
-  } else if (funcCalled === 'domTestTwo') {
+  } else if (funcCalled === testBtn2) {
     domTestTwo(genArr);
-  } else if (funcCalled === 'domTestThree') {
+  } else if (funcCalled === testBtn3) {
     domTestThree(genArr);
   }
 };
@@ -52,7 +52,7 @@ const domTestOne = (arr) => {
   // End the performance test and display the time:
   const endTime = performance.now();
   perfDisplay1.textContent = `First test: ${endTime - startTime} milliseconds.`;
-}
+};
 
 const domTestTwo = (arr) => {
   // Reset the paragraphs if there is any:
@@ -74,7 +74,7 @@ const domTestTwo = (arr) => {
   // End the performance test and display the time:
   const endTime = performance.now();
   perfDisplay2.textContent = `Second test: ${endTime - startTime} milliseconds.`;
-}
+};
 
 const domTestThree = (arr) => {
   // Reset the paragraphs if there is any:
@@ -95,7 +95,7 @@ const domTestThree = (arr) => {
   // End the performance test and display the time:
   const endTime = performance.now();
   perfDisplay3.textContent = `Third test: ${endTime - startTime} milliseconds.`;
-}
+};
 
 // Reset button function:
 const reset = () => {
@@ -112,7 +112,7 @@ const reset = () => {
       par.parentElement.removeChild(par);
     });
   }
-}
+};
 
 // Function to call the tests:
 /* This function was needed to solve a problem:
@@ -121,15 +121,15 @@ to gerenate the paragraphs will run on document load. This way it prevents the b
 domTestDiv.addEventListener('click', (e) => {
   e.preventDefault();
   if(e.target === testBtn1) {
-    arrayGenerator('domTestOne')
+    arrayGenerator(testBtn1);
   } else if (e.target === testBtn2) {
-    arrayGenerator('domTestTwo');
+    arrayGenerator(testBtn2);
   } else if (e.target === testBtn3) {
-    arrayGenerator('domTestThree');
+    arrayGenerator(testBtn3);
   } else if (e.target === resetBtn) {
     reset();
   }
-})
+});
 
 
 
