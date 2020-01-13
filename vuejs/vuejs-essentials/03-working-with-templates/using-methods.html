@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vuejs Using Methods</title>
+</head>
+<body class="container mt-4">
+  <div id="app">
+    <h3>Slugetize</h3>
+    <h2>This will get the actual time and display inside the string</h2>
+    <p>If you notice, you can change the text, but the computed property will not change.
+      If it is created as a method instead of a computed property, then it will change, like the second example.
+    </p>
+    <input type="text" class="form-control" v-model="slugText">
+    <div class="font-weight-bold text-danger">
+      <p>{{ slugetize }}</p>
+    </div>
+    <input type="text" class="form-control" v-model="slugText2">
+    <div class="font-weight-bold text-danger">
+      <p>{{ slugetize2 }}</p>
+    </div>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+  <script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      slugText: 'The Quick #&#$^ Brown 29',
+      slugText2: 'Second example: '
+    },
+    computed: {
+      now () {
+        let date = new Date()
+        return (
+          `Time is ${String(date.getHours())}:${String(date.getMinutes())}:${String(date.getSeconds())}`
+        )
+      },
+      slugetize () {
+        return this.slugText
+        .toLowerCase()
+        .replace(/[^\w ]/g, '')
+        .replace(/ +/g, '-') + '-' + this.now
+      },
+      slugetize2 () {
+        return this.slugText2
+        .toLowerCase() + this.now2()
+      }
+    },
+    methods: {
+      now2 () {
+        let date = new Date()
+        return (
+          `Time is ${String(date.getHours())}:${String(date.getMinutes())}:${String(date.getSeconds())}`
+        )
+      }
+    }
+  });
+
+  </script>
+</body>
+</html>
