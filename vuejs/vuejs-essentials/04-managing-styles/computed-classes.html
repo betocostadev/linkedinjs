@@ -21,13 +21,14 @@
       </div>
     </nav>
 
-     <div class="form-inline mr-auto mt-5">
-      <label class="font-weight-bold mr-2" for="formMax">max</label>
-       <input type="text" id="formMax" class="form-control w-25" v-model="maximum">
-     </div>
+    <h1>My Shop</h1>
+    <div class="align-items-center m-5" :class="sliderState">
+    <label class="font-weight-bold mr-2" for="formMax">max</label>
+      <input type="text" id="formMax" class="form-control w-25" v-model="maximum">
+      <input type="range" class="custom-range form-control ml-2 w-25" min="0" max="200" v-model="maximum">
+    </div>
 
 
-     <input type="range" class="custom-range" min="0" max="200" v-model="maximum">
       <div class="row d-flex mb-3 align-items-center"
            v-for="item in products"
            v-if="item.price<=Number(maximum)">

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <title>Vue.js Computed Classes</title>
+</head>
+<body>
+  <div id="app" class="container">
+    <nav class="navbar navbar-light fixed-top">
+      <div class="navbar-text ml-auto d-flex">
+       <button class="btn btn-sm btn-outline-success"
+         @click="sliderStatus = !sliderStatus">
+        <i class="fas fa-dollar-sign"></i></button>
+       <div class="ml-2" v-if="cart.length>0">
+        <b>cart:</b>
+         <span class="badge badge-pill badge-success">{{cart.length}}</span>
+       </div>
+      </div>
+    </nav>
+
+    <h1 class="mt-2">My Shop</h1>
+
+    <!-- change name to ="fade" and remove the properties to use the default animation -->
+    <transition name="custom"
+                  enter-active-class="animated fadeInDown"
+                  leave-active-class="animated slideOutRight">
+      <!-- The Div below with the v-if will be used to enable the fade -->
+      <div v-if="sliderStatus">
+        <div class="align-items-center" :class="sliderState">
+          <label :class="labelArr" for="formMax">max</label>
+          <input type="text" id="formMax" class="form-control mx-2"
+          :style="{'width': inputWidth + 'px', textAlign:'center'}" v-model="maximum">
+          <input type="range" class="custom-range" min="0" max="200" v-model="maximum">
+        </div>
+      </div>
+   </transition>
+
+   <!-- Transition groups using: tag="div" and :key="item.id"-->
+   <!-- Controlling it using JS -->
+   <!-- Also using the :data-index="index" to pass it to JS as a data-set -->
+    <transition-group name="fade" tag="div"
+                      @beforeEnter="beforeEnter"
+                      @enter="enter"
+                      @leave="leave">
+      <div class="row d-none mb-3 align-items-center"
+            v-for="(item,index) in products" :key="item.id"
+            v-if="item.price<=Number(maximum)"
+            :data-index="index">
+
+        <div v-if="addItem">
+          <div class="col-1 m-auto">
+            <button class="btn btn-info"
+            v-on:click="addItem(item)">+</button>
+          </div>
+        </div>
+
+        <div class="col-4">
+        <img class="img-fluid d-block" :src="item.image" :alt="item.name">
+        </div>
+        <div class="col">
+          <h3 class="text-info">{{ item.name }}</h3>
+          <p class="mb-0">{{ item.description }}</p>
+          <div class="h5 float-right">${{ Number(item.price) }}</div>
+        </div>
+      </div>
+    </transition-group>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        inputArr: ['form-control', 'w-25', 'mx-2', 'text-center'],
+        inputStyle: {'width': '60px', 'text-align': 'center'},
+        inputRangeWidth: 300,
+        sliderStatus: true,
+        maximum: 99,
+        products: null,
+        cart: []
+      },
+      computed: {
+        // Computed classes
+        sliderState () {
+          return this.sliderStatus ? 'd-flex': 'd-none'
+        }
+      },
+      methods: {
+        beforeEnter (el) {
+          el.className='d-none'
+        },
+        enter (el) {
+          let delay = el.dataset.index * 100
+          setTimeout(() => {
+            el.className='row d-flex mb-3 align-items-center animated fadeInRight'
+          }, delay)
+        },
+        leave (el) {
+          let delay = el.dataset.index * 100
+          setTimeout(() => {
+            el.className='row d-flex mb-3 align-items-center animated fadeOutRight'
+          }, delay)
+        },
+        addItem: function(product) {
+        this.cart.push(product);
+        }
+      },
+      mounted: function() {
+        fetch('https://hplussport.com/api/products/order/price')
+        .then(response => response.json())
+        .then(data => {
+          this.products = data
+        })
+      }
+    })
+  </script>
+
+  <!-- Animation -->
+  <style>
+    .fade-enter, .fade-leave-to {
+      opacity: 0;
+    }
+    .fade-enter-active, .fade-leave-active {
+      transition: all 1s ease-in-out;
+    }
+  </style>
+</body>
+</html>
