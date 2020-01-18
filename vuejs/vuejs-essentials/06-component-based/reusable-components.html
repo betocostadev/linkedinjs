@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <script src="https://kit.fontawesome.com/c737597d18.js" crossorigin="anonymous"></script>
+  <title>Vue.js Creating reusable components</title>
+</head>
+<body class="container">
+  <div id="app">
+    <nav class="navbar navbar-light fixed-top">
+      <div class="navbar-text ml-auto d-flex">
+       <button class="btn btn-sm btn-outline-success"
+         @click="sliderStatus = !sliderStatus">
+        <i class="fas fa-dollar-sign"></i></button>
+       <div class="dropdown ml-2">
+        <button class="btn btn-success btn-sm dropdown-toggle"
+           id="cartDropdown" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">
+         <span class="badge badge-pill badge-light p-1">{{ cartQty }}</span>
+         <i class="fas fa-shopping-cart mx-2"></i>
+         {{ cartTotal | currency }}
+        </button>
+        <div class="dropdown-menu dropdown-menu-right"
+          aria-labelledby="cartDropdown">
+         <div v-for="(item, index) in cart" :key="index">
+          <div class="dropdown-item-text text-nowrap text-right">
+           <span class="badge badge-pill badge-warning align-text-top mr-1">{{ item.qty }}</span>
+           {{ item.product.name }}
+           <b>{{ (item.qty * item.product.price) | currency }}</b>
+           <!-- Using @click.stop to stop propagantion and to not close the cart dropdown -->
+           <a href="#" @click.stop="deleteItem(index)"
+              class="badge badge-danger text-white">-</a>
+          </div>
+         </div>
+        </div>
+
+
+       </div>
+      </div>
+    </nav>
+
+     <h1>My Shop</h1>
+     <transition name="fade">
+      <div v-if="sliderStatus">
+       <div class="align-items-center" :class="sliderState">
+        <label :class="labelArr" for="formMax">max</label>
+         <input type="text" id="formMax" class="form-control mx-2"
+                :style="{'width': inputWidth + 'px', textAlign:'center'}" v-model="maximum">
+         <input type="range" class="custom-range" min="0" max="200" v-model="maximum">
+       </div>
+      </div>
+     </transition>
+
+
+    <transition-group name="fade" tag="div"
+       @beforeEnter="beforeEnter"
+       @enter="enter"
+       @leave="leave">
+      <div class="row d-none mb-3 align-items-center"
+           v-for="(item, index) in products" :key="item.id"
+           v-if="item.price<=Number(maximum)"
+           :data-index="index">
+       <div class="col-1 m-auto">
+        <button class="btn btn-info"
+                v-on:click="addItem(item)">+</button>
+       </div>
+       <div class="col-4">
+        <img class="img-fluid d-block" :src="item.image" :alt="item.name">
+       </div>
+       <div class="col">
+          <h3 class="text-info">{{ item.name }}</h3>
+          <p class="mb-0">{{ item.description }}</p>
+          <div class="h5 float-right">
+            <pricecomp :value="Number(item.price)"
+                      :prefix="'&euro;'"
+                      :precision="2"
+                      :conversion="1">
+            </pricecomp>
+          </div>
+        </div>
+      </div>
+    </transition-group>
+
+    </div>
+
+
+  <!-- BOOTSTRAP -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <!-- VUE -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <script>
+
+    // Example of a filter that could be used by other components.
+    // Vue.filter('currency', function () {
+    //   //... filter something
+    // })
+
+    // Reusable components
+    Vue.component('pricecomp', {
+      data () {
+        return {
+          // Not using now, since we are using the props
+          // prefix: '$',
+          // precision: 2
+        }
+      },
+
+      props: {
+        value: Number,
+        prefix: {
+          type: String,
+          default: '$'
+        },
+        precision: {
+          type: Number,
+          default: 2
+        },
+        conversion: {
+          type: Number,
+          default: 1
+        }
+      },
+
+      template: `
+      <span class="mr-2">{{ this.prefix + Number(parseFloat(this.value * this.conversion).toFixed(this.precision)) }}</span>
+      `
+    })
+
+    const app = new Vue({
+      el: '#app',
+      data: {
+        inputWidth: 60,
+        sliderStatus: false,
+        labelArr: ['font-weight-bold', 'mr-2'],
+        maximum: 99,
+        products: null,
+        cart: []
+      },
+      filters: {
+        currency: function(value) {
+        return '$' + Number.parseFloat(value).toFixed(2);
+        }
+      },
+      computed: {
+        cartTotal () {
+          let sum = 0
+          for (key in this.cart) {
+            sum = sum + (this.cart[key].product.price * this.cart[key].qty)
+          }
+          return sum
+        },
+
+        cartQty () {
+          let qty = 0
+          for (key in this.cart) {
+            qty = qty + this.cart[key].qty
+          }
+          return qty
+        },
+
+        sliderState: function() {
+        return this.sliderStatus ? 'd-flex': 'd-none'
+        }
+
+      },
+      methods: {
+        beforeEnter: function(el) {
+        el.className='d-none'
+        },
+        enter: function(el) {
+        let delay=el.dataset.index * 100;
+        setTimeout(function() {
+          el.className='row d-flex mb-3 align-items-center animated fadeInRight'
+        }, delay);
+        },
+        leave: function(el) {
+        let delay=el.dataset.index * 100;
+        setTimeout(function() {
+          el.className='row d-flex mb-3 align-items-center animated fadeOutRight'
+        }, delay);
+        },
+
+        addItem: function(product) {
+          let whichProduct;
+          let existing = this.cart.filter((item, index) => {
+            if (item.product.id == Number(product.id)) {
+            whichProduct = index;
+            return true;
+            } else {
+            return false;
+            }
+          });
+
+          if (existing.length) {
+            this.cart[whichProduct].qty++
+          } else {
+            this.cart.push({product: product, qty: 1})
+          }
+        },
+
+        deleteItem (id) {
+          this.cart[id].qty > 1
+          ? this.cart[id].qty--
+          : this.cart.splice(id, 1)
+        }
+      },
+      mounted: function() {
+        fetch('https://hplussport.com/api/products/order/price')
+        .then(response => response.json())
+        .then(data => {
+          this.products = data;
+        })
+      }
+      });
+
+  </script>
+
+  <!-- Animation -->
+  <style>
+    .fade-enter, .fade-leave-to {
+      opacity: 0;
+    }
+    .fade-enter-active, .fade-leave-active {
+      transition: all 1s ease-in-out;
+    }
+  </style>
+</body>
+</html>
