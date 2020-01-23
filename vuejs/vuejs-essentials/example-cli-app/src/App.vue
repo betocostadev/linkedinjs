@@ -3,6 +3,10 @@
     <h1>My Shop</h1>
     <p class="animated fadeInRight">Take a Look at our offerings</p>
     <font-awesome-icon icon="shopping-cart"></font-awesome-icon>
+    <price-slider
+      :sliderStatus="sliderStatus"
+      :maximum.sync="maximum"
+    ></price-slider>
     <product-list
       :maximum="maximum"
       :products="products"
@@ -19,18 +23,21 @@
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import ProductList from "./components/ProductList";
+import PriceSlider from "./components/PriceSlider";
 export default {
   name: "app",
   data() {
     return {
       maximum: 99,
       cart: [],
-      products: null
+      products: null,
+      sliderStatus: true
     };
   },
   components: {
     FontAwesomeIcon,
-    ProductList
+    ProductList,
+    PriceSlider
   },
   methods: {
     addItem(product) {
