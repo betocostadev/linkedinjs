@@ -1,5 +1,13 @@
 <template>
-  <div id="app">
+  <div id="app" class="container mt-5">
+    <h1>My Shop</h1>
+    <p class="animated fadeInRight">Take a Look at our offerings</p>
+    <font-awesome-icon icon="shopping-cart"></font-awesome-icon>
+    <product-list
+      :maximum="maximum"
+      :products="products"
+      @add="addItem"
+    ></product-list>
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
@@ -7,6 +15,58 @@
     <router-view />
   </div>
 </template>
+
+<script>
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import ProductList from "./components/ProductList";
+export default {
+  name: "app",
+  data() {
+    return {
+      maximum: 99,
+      cart: [],
+      products: null
+    };
+  },
+  components: {
+    FontAwesomeIcon,
+    ProductList
+  },
+  methods: {
+    addItem(product) {
+      let whichProduct;
+      let existing = this.cart.filter(function(item, index) {
+        if (item.product.id == Number(product.id)) {
+          whichProduct = index;
+          return true;
+        } else {
+          return false;
+        }
+      });
+
+      if (existing.length) {
+        this.cart[whichProduct].qty++;
+      } else {
+        this.cart.push({ product: product, qty: 1 });
+      }
+    }
+    // deleteItem: function(id) {
+    //   if (this.cart[id].qty > 1) {
+    //     this.cart[id].qty--;
+    //   } else {
+    //     this.cart.splice(id, 1);
+    //   }
+    // }
+  },
+  mounted() {
+    fetch("https://hplussport.com/api/products/order/price")
+      .then(response => response.json())
+      .then(data => {
+        this.products = data;
+      });
+  }
+};
+</script>
 
 <style>
 #app {
