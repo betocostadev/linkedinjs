@@ -29,7 +29,8 @@ export default {
   name: "price-slider",
   data() {
     return {
-      maxAmount: 99
+      maxAmount: 99,
+      labelArr: "labelArr"
     };
   },
   props: ["sliderStatus"],
@@ -49,5 +50,11 @@ export default {
 .fade-enter-active,
 .fade-leave-active {
   transition: all 1s ease-in-out;
+}
+
+.labelArr {
+  margin: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 </style>

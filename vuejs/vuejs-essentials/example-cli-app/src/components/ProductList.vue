@@ -55,5 +55,12 @@ export default {
       }, delay);
     }
   }
+  // computed: {
+  //   productsToShow() {
+  //     return this.products.filter(item => {
+  //       return item.price <= this.maximum;
+  //     });
+  //   }
+  // }
 };
 </script>
