@@ -1,27 +1,19 @@
 <template>
   <div id="app" class="container mt-5">
-    <h1>My Shop</h1>
-    <navbar
+    <router-view
       :cart="cart"
       :cartQty="cartQty"
       :cartTotal="cartTotal"
-      @toggle="toggleSliderStatus"
-      @delete="deleteItem"
-    >
-    </navbar>
-    <p class="animated fadeInRight">Take a Look at our offerings</p>
-    <font-awesome-icon icon="shopping-cart"></font-awesome-icon>
-    <price-slider
       :sliderStatus="sliderStatus"
       :maximum.sync="maximum"
-    ></price-slider>
-    <product-list
-      :maximum="maximum"
       :products="products"
+      @toggle="toggleSliderStatus"
       @add="addItem"
-    ></product-list>
+      @delete="deleteItem"
+    ></router-view>
     <div id="nav">
       <router-link to="/">Home</router-link> |
+      <router-link to="/shop">Shop</router-link> |
       <router-link to="/about">About</router-link>
     </div>
     <router-view />
@@ -29,25 +21,15 @@
 </template>
 
 <script>
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import ProductList from "./components/ProductList";
-import PriceSlider from "./components/PriceSlider";
-import Navbar from "./components/Navbar";
 export default {
   name: "app",
   data() {
     return {
       maximum: 99,
+      sliderStatus: true,
       cart: [],
-      products: null,
-      sliderStatus: true
+      products: null
     };
-  },
-  components: {
-    FontAwesomeIcon,
-    ProductList,
-    PriceSlider,
-    Navbar
   },
   computed: {
     cartTotal() {
