@@ -1,6 +1,14 @@
 <template>
   <div id="app" class="container mt-5">
     <h1>My Shop</h1>
+    <navbar
+      :cart="cart"
+      :cartQty="cartQty"
+      :cartTotal="cartTotal"
+      @toggle="toggleSliderStatus"
+      @delete="deleteItem"
+    >
+    </navbar>
     <p class="animated fadeInRight">Take a Look at our offerings</p>
     <font-awesome-icon icon="shopping-cart"></font-awesome-icon>
     <price-slider
@@ -24,6 +32,7 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import ProductList from "./components/ProductList";
 import PriceSlider from "./components/PriceSlider";
+import Navbar from "./components/Navbar";
 export default {
   name: "app",
   data() {
@@ -37,9 +46,30 @@ export default {
   components: {
     FontAwesomeIcon,
     ProductList,
-    PriceSlider
+    PriceSlider,
+    Navbar
+  },
+  computed: {
+    cartTotal() {
+      let sum = 0;
+      for (let key in this.cart) {
+        sum = sum + this.cart[key].product.price * this.cart[key].qty;
+      }
+      return sum;
+    },
+    cartQty() {
+      let qty = 0;
+      for (let key in this.cart) {
+        qty = qty + this.cart[key].qty;
+      }
+      return qty;
+    }
   },
   methods: {
+    toggleSliderStatus() {
+      this.sliderStatus = !this.sliderStatus;
+    },
+
     addItem(product) {
       let whichProduct;
       let existing = this.cart.filter(function(item, index) {
@@ -56,14 +86,14 @@ export default {
       } else {
         this.cart.push({ product: product, qty: 1 });
       }
+    },
+    deleteItem(id) {
+      if (this.cart[id].qty > 1) {
+        this.cart[id].qty--;
+      } else {
+        this.cart.splice(id, 1);
+      }
     }
-    // deleteItem: function(id) {
-    //   if (this.cart[id].qty > 1) {
-    //     this.cart[id].qty--;
-    //   } else {
-    //     this.cart.splice(id, 1);
-    //   }
-    // }
   },
   mounted() {
     fetch("https://hplussport.com/api/products/order/price")
