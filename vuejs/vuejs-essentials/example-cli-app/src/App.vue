@@ -1,5 +1,10 @@
 <template>
   <div id="app" class="container mt-5">
+    <div id="nav">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/shop">Shop</router-link> |
+      <router-link to="/about">About</router-link>
+    </div>
     <router-view
       :cart="cart"
       :cartQty="cartQty"
@@ -11,11 +16,6 @@
       @add="addItem"
       @delete="deleteItem"
     ></router-view>
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/shop">Shop</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
     <router-view />
   </div>
 </template>

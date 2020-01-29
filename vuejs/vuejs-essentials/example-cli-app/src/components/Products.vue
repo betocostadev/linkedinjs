@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>My Shop</h1>
+    <h1>Shopping</h1>
     <navbar :cart="cart" :cartQty="cartQty" :cartTotal="cartTotal"> </navbar>
     <p class="animated fadeInRight">Take a Look at our offerings</p>
     <price-slider
