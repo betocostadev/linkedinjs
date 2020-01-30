@@ -7,3 +7,7 @@ var shoppingList = [
   { name: "Bananas", price: 2.79 },
   { name: "Beer",    price: 6.99 }
 ]
+
+const totalCost = shoppingList.reduce((acc, item) => acc + item.price, 0)
+
+console.log(totalCost)
