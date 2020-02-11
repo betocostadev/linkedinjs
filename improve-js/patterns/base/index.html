@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design Patters</title>
+</head>
+<body>
+  <h1>Design Patterns</h1>
+  <h2>Overview</h2>
+  <h3>Functions as first-class citizens</h3>
+  <p>First-class citizens are functions declared as variables and passed as arguments.</p>
+  <code><pre>
+const calc = () => 4 * 3
+
+let aNumber = calc()
+
+console.log(aNumber)
+  </pre></code>
+
+  <h3>Callback and it's role</h3>
+  <code><pre>
+const calc = () => 4 * 3
+
+const printCalc = (callback) => {
+  console.log(callback())
+}
+
+printCalc(calc)
+  </pre></code>
+
+  <h3>Prototype/Class Design pattern</h3>
+  <p>The Prototype or Class pattern allows us to define a blueprint for a specif type of item and use it for creating a new object from that class.</p>
+  <p>Example:</p>
+  <code><pre>
+class Character {
+  constructor (serie, name, gender, age) {
+    this.serie = serie
+    this.name = name
+    this.gender = gender
+    this.age = age
+  }
+}
+
+const lagertha = new Character('Vikings', 'Lagertha', 'female', 36)
+  </pre></code>
+
+  <h3>The Constructor pattern</h3>
+  <p>The constructor pattern is one step further to the Prototype pattern. Where we leverage a class created to generate a new class that extends the other.</p>
+  <p>Example:</p>
+  <code><pre>
+class Character {
+  constructor (serie, name, gender, age) {
+    this.serie = serie
+    this.name = name
+    this.gender = gender
+    this.age = age
+  }
+}
+
+class Chartype extends Character {
+  constructor(serie, name, gender, age, type) {
+    super(serie, name, gender, age)
+    this.type = type
+  }
+}
+
+const lagertha = new Character('Vikings', 'Lagertha', 'female', 36)
+const ragnar = new Chartype('Vikings', 'Ragnar', 'male', 40, 'Warrior')
+  </pre></code>
+
+  <h3>Singleton pattern</h3>
+  <p>It is used to prevent our class from creating more than one instance of the blueprint we have defined.</p>
+  <p>Example:</p>
+  <code><pre>
+    let instance = null
+
+class Character {
+  constructor (serie, name, gender, age) {
+    if (!instance) {
+      this.serie = serie
+      this.name = name
+      this.gender = gender
+      this.age = age
+      instance = this
+    } else {
+      return instance
+    }
+  }
+}
+const loki = new Character('Vikings', 'Loki', 'male', 43)
+const lagertha = new Character('Vikings', 'Lagertha', 'female', 36)
+// The output will be for loki only.
+  </pre></code>
+
+  <h3>Factory pattern</h3>
+  <p>The factory pattern is like creating a mechanism for creating other objects. Like a factory for creating cars.</p>
+  <p>Example:</p>
+  <code><pre>
+class Car {
+  constructor (doors, engine, model) {
+    this.doors = doors
+    this.engine = engine
+    this.model = model
+  }
+}
+
+class carFactory {
+  createCar(type) {
+    switch(type) {
+    case 'sedan':
+      return new Car(4, 'V6', 'sedan')
+    case 'hatch':
+      return new Car(2, '4', 'hatch')
+    default:
+      return new Car(2, 'not selected', 'not selected')
+    }
+  }
+}
+
+const factory = new carFactory()
+const m3 = factory.createCar('sedan')
+const civic = factory.createCar('hatch')
+  </pre></code>
+  <script src="scripts.js"></script>
+</body>
+</html>
