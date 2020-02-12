@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design Patters</title>
+</head>
+<body>
+  <h1>Design Patterns</h1>
+  <h2>Structural patterns</h2>
+  <h3>Module pattern</h3>
+  <p>Probably the most commonly used pattern. Speaclly if you use any framework. The idea behind the module pattern is to organize the code in pure functions. This makes debugging much easier, since you can inspeact each module to find any problem.</p>
+  <code><pre>
+const calc = () => 4 * 3
+
+let aNumber = calc()
+
+console.log(aNumber)
+  </pre></code>
+
+  <h3>Callback and it's role</h3>
+  <code><pre>
+const calc = () => 4 * 3
+
+const printCalc = (callback) => {
+  console.log(callback())
+}
+
+printCalc(calc)
+  </pre></code>
+
+  <script src="scripts.js"></script>
+</body>
+</html>

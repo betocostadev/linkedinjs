@@ -122,6 +122,70 @@ const factory = new carFactory()
 const m3 = factory.createCar('sedan')
 const civic = factory.createCar('hatch')
   </pre></code>
+
+  <h3>Abstract Factory</h3>
+  <p>Taking further the concept of a factory pattern</p>
+  <p>Example:</p>
+  <code><pre>
+class Car {
+  constructor (doors, engine, model) {
+    this.doors = doors
+    this.engine = engine
+    this.model = model
+  }
+}
+
+class CarFactory {
+  createCar(type) {
+    switch(type) {
+    case 'sedan':
+      return new Car(4, 'V6', 'sedan')
+    case 'hatch':
+      return new Car(2, '4', 'hatch')
+    default:
+      return new Car(2, 'not selected', 'not selected')
+    }
+  }
+}
+
+class Suv {
+  constructor (doors, engine, model) {
+    this.doors = doors
+    this.engine = engine
+    this.model = model
+  }
+}
+
+class SuvFactory {
+  createCar(type) {
+    switch(type) {
+    case 'big':
+      return new Car(4, 'V6', 'big')
+    case 'small':
+      return new Car(4, '4', 'small')
+    default:
+      return new Car(2, 'not selected', 'not selected')
+    }
+  }
+}
+
+const carFactory = new CarFactory()
+const suvFactory = new SuvFactory()
+
+const autoManufacturer = (type, model) => {
+  switch (type) {
+  case 'car':
+    return carFactory.createCar(model)
+  case 'suv':
+    return suvFactory.createCar(model)
+  default:
+    break
+  }
+}
+
+const m3 = autoManufacturer('car', 'sedan')
+const crv = autoManufacturer('suv', 'small')
+  </pre></code>
   <script src="scripts.js"></script>
 </body>
 </html>

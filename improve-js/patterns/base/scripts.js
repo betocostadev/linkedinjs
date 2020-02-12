@@ -58,7 +58,8 @@ const lagertha = new Character('Vikings', 'Lagertha', 'female', 36)
 console.log(loki)
 console.log(lagertha) */
 
-// The Factor pattern
+/*
+// The Factory pattern
 
 class Car {
   constructor (doors, engine, model) {
@@ -86,4 +87,66 @@ const m3 = factory.createCar('sedan')
 const civic = factory.createCar('hatch')
 
 console.log(m3)
-console.log(civic)
+console.log(civic) */
+
+class Car {
+  constructor (doors, engine, model) {
+    this.doors = doors
+    this.engine = engine
+    this.model = model
+  }
+}
+
+class CarFactory {
+  createCar(type) {
+    switch(type) {
+    case 'sedan':
+      return new Car(4, 'V6', 'sedan')
+    case 'hatch':
+      return new Car(2, '4', 'hatch')
+    default:
+      return new Car(2, 'not selected', 'not selected')
+    }
+  }
+}
+
+class Suv {
+  constructor (doors, engine, model) {
+    this.doors = doors
+    this.engine = engine
+    this.model = model
+  }
+}
+
+class SuvFactory {
+  createCar(type) {
+    switch(type) {
+    case 'big':
+      return new Car(4, 'V6', 'big')
+    case 'small':
+      return new Car(4, '4', 'small')
+    default:
+      return new Car(2, 'not selected', 'not selected')
+    }
+  }
+}
+
+const carFactory = new CarFactory()
+const suvFactory = new SuvFactory()
+
+const autoManufacturer = (type, model) => {
+  switch (type) {
+  case 'car':
+    return carFactory.createCar(model)
+  case 'suv':
+    return suvFactory.createCar(model)
+  default:
+    break
+  }
+}
+
+const m3 = autoManufacturer('car', 'sedan')
+const crv = autoManufacturer('suv', 'small')
+
+console.log(m3)
+console.log(crv)
