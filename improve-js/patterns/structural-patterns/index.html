@@ -10,24 +10,120 @@
   <h2>Structural patterns</h2>
   <h3>Module pattern</h3>
   <p>Probably the most commonly used pattern. Speaclly if you use any framework. The idea behind the module pattern is to organize the code in pure functions. This makes debugging much easier, since you can inspeact each module to find any problem.</p>
+  <p>It is simply the use of another modules inside our programs, like using Express with Node.</p>
+  <p>Example:</p>
   <code><pre>
-const calc = () => 4 * 3
-
-let aNumber = calc()
-
-console.log(aNumber)
-  </pre></code>
-
-  <h3>Callback and it's role</h3>
-  <code><pre>
-const calc = () => 4 * 3
-
-const printCalc = (callback) => {
-  console.log(callback())
+// calc.js file
+const calc = () => {
+  return 4 * 3
 }
 
-printCalc(calc)
+export default calc
+
+// index.js file
+import calc from './calc'
+
+const app = express()
+const PORT = 3000
+
+const aNumber = calc()
+
+app.get('/', (req, res) =>
+    res.send(`Node and express server is running on port ${PORT}
+    From the calc module: The number is: ${aNumber}.`)
+);
   </pre></code>
+
+  <h3>Mixing pattern</h3>
+  <p>They are a great way to create functions and instances of a class after they have been created.</p>
+
+  <code><pre>
+class Car {
+  constructor (doors, engine, model) {
+    this.doors = doors
+    this.engine = engine
+    this.model = model
+  }
+}
+
+class CarFactory {
+  createCar(type) {
+    switch(type) {
+    case 'sedan':
+      return new Car(4, 'V6', 'sedan')
+    case 'hatch':
+      return new Car(2, '4', 'hatch')
+    default:
+      return new Car(2, 'not selected', 'not selected')
+    }
+  }
+}
+
+let carMixin = {
+  revEngine() {
+    console.log(`The ${this.engine} of the ${this.model} is revving.`)
+  }
+}
+
+const carFactory = new CarFactory()
+
+const autoManufacturer = (type, model) => {
+  switch (type) {
+  case 'car':
+    return carFactory.createCar(model)
+  default:
+    break
+  }
+}
+
+Object.assign(Car.prototype, carMixin)
+
+const m3 = autoManufacturer('car', 'sedan')
+
+m3.revEngine()
+  </pre></code>
+
+  <h3>Facade pattern</h3>
+  <p>It is basically a way for hiding complexity. A way to hide the complex code behind a facade. It is like a calling a component module to create a component in React or Vue.</p>
+
+  <h3>Flyweight pattern</h3>
+  <p>It is a pattern to avoid creating the same methods twice and therefore minimize the impact in of memory usage in the system. It is like when use the Singleton patter and lock the creation of the same class by using an instance.</p>
+  <p>Example:</p>
+  <code><pre>
+let instance = null
+
+class Character {
+  constructor (serie, name, gender, age) {
+    if (!instance) {
+      this.serie = serie
+      this.name = name
+      this.gender = gender
+      this.age = age
+      instance = this
+    } else {
+      return instance
+    }
+  }
+}
+  </pre></code>
+
+  <h3>Decorator pattern</h3>
+  <p>It is a pattern similar to using mixins. We decorate classes or code that came from somewhere else.Its purpose is to take a code like a class and extend it with other code.</p>
+
+  <h3>MVC | The Model-View-Controller</h3>
+  <p>They are divided as:</p>
+  <ul>
+    <li>The <strong>model</strong> is where the data resides, where you define your schemas and models for the data;</li>
+    <li>The <strong>views</strong> is where the visuals are, like an HTML file;</li>
+    <li>The <strong>controller</strong> is where you keep the logic of your application, its functions.</li>
+  </ul>
+
+  <h3>MVP | The Model-View-Presenter pattern</h3>
+  <p>It's a pattern loosely based on the MVC pattern. In this case, the Presenter is where we keep the logic, as the Controller in the MVC pattern.</p>
+  <p>In the MVC pattern, the View doesn't have access to the Model, while it have on the MVP.</p>
+
+  <h3>MVVM | Model-View-ViewModel</h3>
+  <p>It is similar to the other two and differently only in implementation. There is the stateless View, the stateful View Model and it connects to the Model. It is used in React.</p>
 
   <script src="scripts.js"></script>
 </body>

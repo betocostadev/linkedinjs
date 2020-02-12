@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design Patters</title>
+</head>
+<body>
+  <h1>Design Patterns</h1>
+  <h2>Behavioral patterns</h2>
+  <h3>Observer pattern</h3>
+  <p>The Observer pattern is one where we maintain a list of objects based on events. It's tipically done where we update data based on events.</p>
+  <p>Example:</p>
+  <code><pre>
+class Car {
+  constructor(gas) {
+    this.gas = gas
+  }
+
+  setGasLevel(val) {
+    this.gas = val
+    this.notifyAll()
+  }
+
+  register(observer) {
+    this.actions.push(observer)
+  }
+
+  unregister(observer) {
+    this.actions.remove.filter(function(el) {
+      return el !== observer
+    })
+  }
+
+  notifyAll() {
+    return this.actions.forEach(function(el) {
+      el.update(this)
+    }.bind(this))
+  }
+}
+
+class consumption {
+  update(car) {
+    car.gas = car.gas + 1
+  }
+}
+  </pre></code>
+
+  <script src="scripts.js"></script>
+</body>
+</html>
