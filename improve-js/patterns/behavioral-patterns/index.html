@@ -46,6 +46,95 @@ class consumption {
 }
   </pre></code>
 
+  <h3>State pattern</h3>
+  <p>The state pattern has became very popular with the use of libraries like React. Basically it's the pattern where we hold the data with all the properties needed for the application and then we change it to update the render of the application.</p>
+  <code><pre>
+    import React, { Component } from 'react';
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      news1: {
+        type: 'top-headlines',
+        query: 'sources=bbc-news'
+      },
+      news2: {
+        type: 'everything',
+        query: 'domains=techcrunch.com&language=en'
+      },
+      news3: {
+        type: 'everything',
+        query: 'domains=comicbookmovie.com&language=en'
+      }
+    }
+  }
+}
+  </pre></code>
+
+  <h3>Chain of Responsibility</h3>
+  <p>It's a pattern to help solving common practical issues of having a request from a client and then passing this request to the logic or functions needed to proccess it. The idea is to work like a chain, where the actions occur in a sequential way, as they usually will depend on the others.</p>
+
+  <h3>Iterator pattern</h3>
+  <p>It is a method of iterating though a list of items. It is best used as loop where you need to loop an array of objects.</p>
+
+  <h3>Strategy pattern</h3>
+  <p>It's basically a way to encapsulate different algorithms or functions. And then at run time use the same code to run different scenarios.</p>
+  <p>Example:</p>
+  <code><pre>
+class Car {
+  constructor(doors, engine, color) {
+      this.doors = doors;
+      this.engine = engine;
+      this.color = color;
+  }
+}
+
+class Suv extends Car {
+  constructor(doors, engine, color) {
+      super(doors, engine, color);
+      this.wheels = 4;
+  }
+}
+
+const civic = new Car(4, 'V6', 'grey');
+const cx5 = new Suv(4, "V8", 'red');
+  </pre></code>
+
+  <h3>Memento pattern</h3>
+  <p>It's a temporary state of data retaining the info while being converted from one format to another.</p>
+  <p>It works like Object > Json > new Object</p>
+
+  <h3>Mediator pattern</h3>
+  <p>It's a pattern that provides a series of objects which interacts with each other</p>
+  <code><pre>
+class TrafficTower {
+  constructor() {
+    this.airplanes = []
+  }
+
+  requestPositions() {
+    return this.airplanes.map(airplane => {
+      return airplane.position
+    })
+  }
+}
+
+class Airplane {
+  constructor(position, trafficTower) {
+    this.position = position
+    this.trafficTower = trafficTower
+    this.trafficTower.airplanes.push(this)
+  }
+
+  requestPositions() {
+    return this.trafficTower.requestPositions()
+  }
+}
+  </pre></code>
+
+  <h3>Command pattern</h3>
+
   <script src="scripts.js"></script>
 </body>
 </html>
