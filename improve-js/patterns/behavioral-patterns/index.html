@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat|Source+Code+Pro&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
   <title>Design Patters</title>
 </head>
 <body>
@@ -134,6 +136,32 @@ class Airplane {
   </pre></code>
 
   <h3>Command pattern</h3>
+  <p>It's one that encapsulates actions or operations as objects. It's a pattern used in libraries like Redux.</p>
+  <p>Example:</p>
+  <code><pre>
+    // actions/index.js
+let nextTodoId = 0
+export const addTodo = text => ({
+  type: 'ADD_TODO',
+  id: nextTodoId++,
+  text
+})
+export const setVisibilityFilter = filter => ({
+  type: 'SET_VISIBILITY_FILTER',
+  filter
+})
+export const toggleTodo = id => ({
+  type: 'TOGGLE_TODO',
+  id
+})
+export const VisibilityFilters = {
+  SHOW_ALL: 'SHOW_ALL',
+  SHOW_COMPLETED: 'SHOW_COMPLETED',
+  SHOW_ACTIVE: 'SHOW_ACTIVE'
+}
+  </pre></code>
+
+  <p>More examples of the Command pattern <a href="https://redux.js.org/basics/example" target="_blank" rel="noopener noreferrer">here</a>.</p>
 
   <script src="scripts.js"></script>
 </body>
