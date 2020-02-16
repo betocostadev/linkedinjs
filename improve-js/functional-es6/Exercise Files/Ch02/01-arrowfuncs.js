@@ -1,3 +1,4 @@
+// ARROW FUNCTIONS
 function myFunction(arg1, arg2) {
   // body
 }

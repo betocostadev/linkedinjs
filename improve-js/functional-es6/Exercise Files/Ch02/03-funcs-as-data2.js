@@ -1,4 +1,4 @@
-// FUNCTIONS AS DATA
+// FUNCTIONS AS DATA - PART 2
 
 const double = x => x * 2;
 const subtractOne = x => x - 1;
