@@ -18,4 +18,4 @@ module.exports = {
     "rules": {
         'immutable/no-mutation': 2
     }
-};
+}

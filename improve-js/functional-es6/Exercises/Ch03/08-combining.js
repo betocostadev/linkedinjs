@@ -1,3 +1,5 @@
+// COMBINE JAVASCRIPT BUILT-IN FUNCTIONS
+
 const employees = [{
     name: 'John Olsen',
     age: 54,
@@ -33,4 +35,24 @@ const employees = [{
     age: 60,
     jobTitle: 'developer',
     salary: 90000,
-}];
+}]
+
+// Compare the average salary of developers vs others
+const devs = employees
+    .filter(emp => emp.jobTitle === 'developer')
+    .map(devSalary => devSalary.salary)
+    .reduce((acc, salary) => acc + salary, 0)
+
+const notDevs = employees
+    .filter(emp => emp.jobTitle !== 'developer')
+    .map(emp => emp.salary)
+    .reduce((acc, salary) => acc + salary, 0)
+
+const average = {
+    devs: devs / 4,
+    others: notDevs / 3
+}
+console.log(devs)
+console.log(notDevs)
+
+console.table(average)
