@@ -4,7 +4,8 @@
   "description": "Javascript tests based on Javascript essential training from Morten Rand-Hendrikesen",
   "main": "index.html",
   "dependencies": {
-    "eslint": "^5.16.0"
+    "eslint": "^5.16.0",
+    "vuex": "^3.1.2"
   },
   "devDependencies": {},
   "scripts": {
