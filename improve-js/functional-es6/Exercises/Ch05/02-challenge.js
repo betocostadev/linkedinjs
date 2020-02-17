@@ -1,3 +1,5 @@
+// ANAGRAMS CHALLENGE
+// Rules: Dont' use mutation and regex
 import words from 'an-array-of-english-words';
 
 const findAnagrams = (word, allWords) => {

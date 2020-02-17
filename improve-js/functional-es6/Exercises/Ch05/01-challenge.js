@@ -4,14 +4,11 @@ const electionVotes = [
     'Michael', 'Rick', 'Albert', 'Karen', 'Harry',
     'Karen', 'Donna', 'Ashley', 'Albert', 'Harry',
     'Dane', 'Dane', 'Rick', 'Donna', 'Mortimer',
-]
+];
 
 const tallyVotes = votes => {
-    return votes.reduce((acc, name) => ({
-        ...acc,
-        [name]: acc[name] ? acc[name] + 1 : 1
-    }), {})
-}
+    // Your code here
+};
 
 console.log(tallyVotes(electionVotes));
 
