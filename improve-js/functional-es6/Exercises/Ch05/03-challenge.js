@@ -1,3 +1,4 @@
+// ERROR MESSAGES CHALLENGE
 const currentInputValues = {
     firstName: '', // Must be at least 2 characters
     lastName: '', // Must be at least 2 characters
